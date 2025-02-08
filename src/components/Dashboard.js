@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const Dashboard = ({ setAuth }) => {
@@ -34,7 +35,11 @@ const Dashboard = ({ setAuth }) => {
     return (
         <Fragment>
             <h1>Dashboard {name}</h1>
-            <button className="btn btn-primary" onClick={logout}>Logout</button>
+            <Link to="/project">Project</Link>
+            
+            <div>
+                <button className="btn btn-primary" onClick={logout}>Logout</button>
+            </div>
         </Fragment>
     );
 }

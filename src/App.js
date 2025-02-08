@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 import Register from './components/Register';
+import Project from './components/Project';
 
 function App() {
 
@@ -44,7 +45,7 @@ function App() {
                 !isAuthenticated ? (
                   <Login setAuth={setAuth}/>
                 ) : (
-                  <Navigate to='/dashboard'/>
+                  <Navigate to='/project'/>
                 )
               }
             />
@@ -53,6 +54,16 @@ function App() {
               element={
                 !isAuthenticated ? (
                   <Register setAuth={setAuth}/>
+                ) : (
+                  <Navigate to='/login'/>
+                )
+              }
+            />
+            <Route
+              path='/project'
+              element={
+                isAuthenticated ? (
+                  <Project setAuth={setAuth}/>
                 ) : (
                   <Navigate to='/login'/>
                 )
