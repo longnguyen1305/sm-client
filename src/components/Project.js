@@ -4,11 +4,14 @@ import axios from 'axios';
 import JSZip from 'jszip';
 import ReactCodeMirror from '@uiw/react-codemirror';
 import { dracula } from '@uiw/codemirror-theme-dracula';
+import FolderTree from 'react-folder-tree';
 
 const Project = () => {
 
     // All chosen files
     const [files, setFiles] = useState([]);
+    // File Tree Structure
+    const [fileTree, setFileTree] = useState(null);
     // Selected file
     const [selectedFile, setSelectedFile] = useState(null);
     // Code of selected file
@@ -21,26 +24,47 @@ const Project = () => {
     const handleFolderSelect = async (e) => {
         const fileList = e.target.files;
         const newFiles = [];
+        const treeData = { name: "root", children: [], isFile: false, filePath: "root" };
 
         for (const file of fileList) {
             const relativePath = file.webkitRelativePath || file.name;
             const content = await file.text();
             newFiles.push({ key: relativePath, name: file.name, content })
+
+            //Build folder tree structure
+            const parts = relativePath.split("/");
+            let current = treeData;
+            parts.forEach((part, index) => {
+                let existing = current.children.find(child => child.name === part);
+                if (!existing) {
+                    existing = {
+                        name: part,
+                        children: [],
+                        isFile: index === parts.length - 1,
+                        filePath: index === parts.length - 1 ? relativePath : null
+                    };
+                    current.children.push(existing);
+                }
+                current = existing;
+            });
         };
         setFiles(newFiles);
+        setFileTree(treeData);
     };
 
-    const handleFileSelect = (fileKey) => {
-        const file = files.find(f => f.key === fileKey);
-        if (file) {
-            setSelectedFile(fileKey);
-            setCode(file.content || "");
+    const handleFileSelect = ({ defaultOnClick, nodeData }) => {
+        if(nodeData.isFile) {
+            const file = files.find(f => f.key === nodeData.filePath);
+            if (file) {
+                setSelectedFile( { path: nodeData.filePath, name: nodeData.name });
+                setCode(file.content || "");
+            }
         }
     };
 
     const handleEditorChange = (value) => {
         setFiles(prevFiles => prevFiles.map(file =>
-            file.key === selectedFile ? {...file, content: value} : file
+            file.key === selectedFile.path ? {...file, content: value} : file
         ));
     };
 
@@ -103,22 +127,18 @@ const Project = () => {
             <div>
                 <div>
                     <h3>Files</h3>
-                    <ul>
-                        {files.map(({ key, name }) => (
-                            <li
-                                key={key}
-                                className="p-2 cursor-pointer bg-gray-800 hover:bg-gray-600"
-                                onClick={() => handleFileSelect(key)}
-                            >
-                                📄 {name}
-                            </li>
-                        ))}
-                    </ul>
+                    {fileTree && (
+                        <FolderTree
+                            data={fileTree}
+                            showCheckbox={false}
+                            onNameClick={handleFileSelect}
+                        />
+                    )}
                 </div>
                 <div>
                     {selectedFile && (
                         <div className='p-4'>
-                            <h3>Editing: {selectedFile}</h3>
+                            <h3>Editing: {selectedFile.name}</h3>
                             <ReactCodeMirror
                                 value={code}
                                 height="400px"
