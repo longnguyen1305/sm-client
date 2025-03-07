@@ -86,7 +86,7 @@ const Project = () => {
         const zipBlob = await zip.generateAsync({ type:"blob"});
 
         const formData = new FormData();
-        formData.append('zipfile', zipBlob, "project.zip");
+        formData.append('zipfile', zipBlob, `${fileTree.children[0].name}.zip`);
 
         setMessage("Uploading...");
         setProgress(prevState => {
