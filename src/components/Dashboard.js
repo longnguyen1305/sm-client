@@ -6,6 +6,8 @@ import axios from 'axios';
 const Dashboard = ({ setAuth }) => {
 
     const [name, setName] = useState("");
+    const [images, setImages] = useState([]);
+    const [showGallery, setShowGallery] = useState(false);
 
     async function getName() {
         try {
@@ -62,6 +64,26 @@ const Dashboard = ({ setAuth }) => {
         
     }
 
+    const openGallery = () => {
+        setShowGallery(true);
+        getImages();
+    }
+
+    const closeGallery = () => {
+        setShowGallery(false);
+    }
+
+    async function getImages() {
+        try {
+            const response = await axios.get("http://localhost:5000/dashboard/metrics", {
+                headers: {token: localStorage.token}
+            })
+            setImages(response.data.images);
+        } catch (err) {
+            console.error(err.message);
+        }
+    }
+
     return (
         <Fragment>
             <h1>Dashboard {name}</h1>
@@ -71,10 +93,36 @@ const Dashboard = ({ setAuth }) => {
                 <button className="btn btn-primary" onClick={logout}>
                     Logout
                 </button>
+                <button className="btn btn-primary" onClick={openGallery}>
+                    View Images
+                </button>
                 <button className="btn btn-primary" onClick={handleDownload}>
                     Download Optimized Project
                 </button>
             </div>
+            
+            {showGallery && (
+                <div>
+                    <div>
+                        <h2>Metric Images</h2>
+                        <button className="btn btn-primary" onClick={closeGallery}>
+                            Close Images
+                        </button>
+
+                        <div>
+                            {images.map((img, index) => (
+                                <div key={index}>
+                                    <img
+                                        src={`http://localhost:5000/dashboard${img.url}`}
+                                        alt={img.name}
+                                    />
+                                    <p>{img.name}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
         </Fragment>
     );
 }
