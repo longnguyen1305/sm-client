@@ -7,6 +7,7 @@ import Dashboard from './components/Dashboard';
 import Login from './components/loginRegister/Login';
 import Register from './components/loginRegister/Register';
 import Project from './components/Project';
+import Result from './components/Result';
 
 function App() {
 
@@ -39,6 +40,7 @@ function App() {
       <Router>
         <div className='container'>
           <Routes>
+            <Route path="/" element={<Navigate to="/login"/>} />
             <Route
               path='/login'
               element={
@@ -63,7 +65,7 @@ function App() {
               path='/project'
               element={
                 isAuthenticated ? (
-                  <Project setAuth={setAuth}/>
+                  <Project/>
                 ) : (
                   <Navigate to='/login'/>
                 )
@@ -76,6 +78,16 @@ function App() {
                   <Dashboard setAuth={setAuth}/>
                 ) : (
                   <Navigate to='/login'/>
+                )
+              }
+            />
+            <Route
+              path="/dashboard/projects/:projectId"
+              element={
+                isAuthenticated ? (
+                  <Result/>
+                ) : (
+                  <Navigate to="/login"/>
                 )
               }
             />
