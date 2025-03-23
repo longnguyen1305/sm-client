@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import styles from './index.module.css'
 
 const Register = ({ setAuth }) => {
 
@@ -42,35 +43,56 @@ const Register = ({ setAuth }) => {
 
     return (
         <Fragment>
-            <h1 className='text-center my-5'>Register</h1>
-            <form onSubmit={onSubmitForm}>
-                <input
-                    type='email'
-                    name='email'
-                    placeholder='email'
-                    className='form-control my-3'
-                    value={email}
-                    onChange={onChange}
-                />
-                <input
-                    type='password'
-                    name='password'
-                    placeholder='password'
-                    className='form-control my-3'
-                    value={password}
-                    onChange={onChange}
-                />
-                <input
-                    type='text'
-                    name='name'
-                    placeholder='name'
-                    className='form-control my-3'
-                    value={name}
-                    onChange={onChange}
-                />
-                <button className='btn btn-success btn-block'>Submit</button>
-            </form>
-            <Link to="/login">Login</Link>
+            <div className={styles.container}>
+                <header>
+                    <h1 className={styles.logo}>LOGO</h1>
+                </header>
+                <div className={styles.wrapper}>
+                    <div className={styles.formbox}>
+                        <h1>Register</h1>
+                        <form onSubmit={onSubmitForm}>
+                            <div className={styles.inputbox}>
+                                <span className={styles.icon}><ion-icon name="mail-sharp"></ion-icon></span>
+                                <input
+                                    type='email'
+                                    name='email'
+                                    value={email}
+                                    onChange={onChange}
+                                    required
+                                />
+                                <label>Email</label>
+                            </div>
+                            <div className={styles.inputbox}>
+                                <span className={styles.icon}><ion-icon name="lock-closed-sharp"></ion-icon></span>
+                                <input
+                                    type='password'
+                                    name='password'
+                                    value={password}
+                                    onChange={onChange}
+                                    required
+                                />
+                                <label>Password</label>
+                            </div>
+                            <div className={styles.inputbox}>
+                                <span className={styles.icon}><ion-icon name="person-sharp"></ion-icon></span>
+                                <input
+                                    type='text'
+                                    name='name'
+                                    value={name}
+                                    onChange={onChange}
+                                    required
+                                />
+                                <label>Name</label>
+                            </div>
+                            <button className={styles.btn}>Register</button>
+                            <div className={styles.loginregister}>
+                                <p>Already have an account? <Link to="/login" className={styles.link}>Login</Link></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
         </Fragment>
     );
 }

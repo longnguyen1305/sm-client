@@ -112,43 +112,46 @@ const Project = () => {
     
     return (
         <Fragment>
-            <h1 className='text-center my-5'>Upload Project</h1>
-            <Link to="/dashboard">Dashboard</Link>
+            <div className='container'>
+                <h1 className='text-center my-5'>Upload Project</h1>
+                <Link to="/dashboard">Dashboard</Link>
 
-            <div>
-                <input type='file' directory="" webkitdirectory="" onChange={handleFolderSelect}/>
-                <button className="btn btn-primary" onClick={handleUpload}>Upload</button>
-                <br/>
-                { progress.started && <progress max="100" value={progress.percent}></progress> }
-                <br/>
-                { message && <span>{ message }</span> }
-            </div>
-
-            <div>
                 <div>
-                    <h3>Files</h3>
-                    {fileTree && (
-                        <FolderTree
-                            data={fileTree}
-                            showCheckbox={false}
-                            onNameClick={handleFileSelect}
-                        />
-                    )}
+                    <input type='file' directory="" webkitdirectory="" onChange={handleFolderSelect}/>
+                    <button className="btn btn-primary" onClick={handleUpload}>Upload</button>
+                    <br/>
+                    { progress.started && <progress max="100" value={progress.percent}></progress> }
+                    <br/>
+                    { message && <span>{ message }</span> }
                 </div>
+
                 <div>
-                    {selectedFile && (
-                        <div className='p-4'>
-                            <h3>Editing: {selectedFile.name}</h3>
-                            <ReactCodeMirror
-                                value={code}
-                                height="400px"
-                                theme={dracula}
-                                onChange={handleEditorChange}
+                    <div>
+                        <h3>Files</h3>
+                        {fileTree && (
+                            <FolderTree
+                                data={fileTree}
+                                showCheckbox={false}
+                                onNameClick={handleFileSelect}
                             />
-                        </div>
-                    )}
+                        )}
+                    </div>
+                    <div>
+                        {selectedFile && (
+                            <div className='p-4'>
+                                <h3>Editing: {selectedFile.name}</h3>
+                                <ReactCodeMirror
+                                    value={code}
+                                    height="400px"
+                                    theme={dracula}
+                                    onChange={handleEditorChange}
+                                />
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
+            
             
         </Fragment>
     );

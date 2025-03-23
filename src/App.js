@@ -38,62 +38,60 @@ function App() {
   return (
     <Fragment>
       <Router>
-        <div className='container'>
-          <Routes>
-            <Route path="/" element={<Navigate to="/login"/>} />
-            <Route
-              path='/login'
-              element={
-                !isAuthenticated ? (
-                  <Login setAuth={setAuth}/>
-                ) : (
-                  <Navigate to='/project'/>
-                )
-              }
-            />
-            <Route
-              path='/register'
-              element={
-                !isAuthenticated ? (
-                  <Register setAuth={setAuth}/>
-                ) : (
-                  <Navigate to='/login'/>
-                )
-              }
-            />
-            <Route
-              path='/project'
-              element={
-                isAuthenticated ? (
-                  <Project/>
-                ) : (
-                  <Navigate to='/login'/>
-                )
-              }
-            />
-            <Route
-              path='/dashboard'
-              element={
-                isAuthenticated ? (
-                  <Dashboard setAuth={setAuth}/>
-                ) : (
-                  <Navigate to='/login'/>
-                )
-              }
-            />
-            <Route
-              path="/dashboard/projects/:projectId"
-              element={
-                isAuthenticated ? (
-                  <Result/>
-                ) : (
-                  <Navigate to="/login"/>
-                )
-              }
-            />
-          </Routes>
-          <ToastContainer/>
-        </div>
+        <Routes>
+          <Route path="/" element={<Navigate to="/login"/>} />
+          <Route
+            path='/login'
+            element={
+              !isAuthenticated ? (
+                <Login setAuth={setAuth}/>
+              ) : (
+                <Navigate to='/project'/>
+              )
+            }
+          />
+          <Route
+            path='/register'
+            element={
+              !isAuthenticated ? (
+                <Register setAuth={setAuth}/>
+              ) : (
+                <Navigate to='/login'/>
+              )
+            }
+          />
+          <Route
+            path='/project'
+            element={
+              isAuthenticated ? (
+                <Project/>
+              ) : (
+                <Navigate to='/login'/>
+              )
+            }
+          />
+          <Route
+            path='/dashboard'
+            element={
+              isAuthenticated ? (
+                <Dashboard setAuth={setAuth}/>
+              ) : (
+                <Navigate to='/login'/>
+              )
+            }
+          />
+          <Route
+            path="/dashboard/projects/:projectId"
+            element={
+              isAuthenticated ? (
+                <Result/>
+              ) : (
+                <Navigate to="/login"/>
+              )
+            }
+          />
+        </Routes>
+        <ToastContainer/>
       </Router>
     </Fragment>
   );
