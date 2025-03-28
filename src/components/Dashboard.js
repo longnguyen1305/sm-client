@@ -79,7 +79,7 @@ const Dashboard = ({ setAuth }) => {
                                     className={styles.projectButton}
                                     onClick={() => handleProjectClick(project)}
                                 >
-                                    {project.project_name} ({project.project_status})
+                                    {project.project_createtime} / {project.project_name} / {project.project_status}
                                 </button>
                             </li>
                         ))}

@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import styles from './index.module.css'
 
 const Result = () => {
     const { projectId } = useParams();
@@ -55,32 +56,43 @@ const Result = () => {
 
     return (
         <Fragment>
-            <h2>Project: {project.project_name}</h2>
-            <p>Status: {project.project_status}</p>
-            <p>Created At: {project.project_createtime}</p>
+            <div className={styles.container}>
+                <button
+                    className={styles.backButton}
+                    onClick={() => navigate("/dashboard")}
+                >
+                    Back to Dashboard
+                </button>
 
-            <button className="btn btn-primary" onClick={() => navigate("/dashboard")}>
-                Back to Dashboard
-            </button>
+                <h2 className={styles.projecttitle}>Project: {project.project_name}</h2>
+                <p className={styles.projectinfo}>Status: {project.project_status}</p>
+                <p className={styles.projectinfo}>Created At: {project.project_createtime}</p>
 
-            <button className="btn btn-primary" onClick={handleDownload}>
-                Download Project
-            </button>
-
-            <h3>Metrics</h3>
-            {metrics.length === 0 ? (
-                <p>No metrics available.</p>
-            ) : (
-                <div>
-                    {metrics.map((metric) => (
-                        <div key={metric.metric_name}>
-                            <h4>{metric.metric_name}</h4>
-                            <img src={metric.metric_url} alt={metric.metric_name} width="400px" />
-                        </div>
-                    ))}
-                </div>
-            )}
-
+                <button
+                    className={styles.submitButton}
+                    onClick={handleDownload}
+                >
+                    Download Project
+                </button>
+                
+                <h3 className={styles.projecttitle}>Metrics:</h3>
+                {metrics.length === 0 ? (
+                    <p className={styles.noProjectMessage}>No metrics available.</p>
+                ) : (
+                    <div className={styles.metricswrapper}>
+                        {metrics.map((metric) => (
+                            <div key={metric.metric_name} className={styles.metricItem}>
+                                <h4>{metric.metric_name}</h4>
+                                <img
+                                    src={metric.metric_url}
+                                    alt={metric.metric_name}
+                                    className={styles.metricImage}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
         </Fragment>
     )
 }
