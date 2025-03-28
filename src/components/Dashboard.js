@@ -1,13 +1,18 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import styles from './index.module.css'
 
 const Dashboard = ({ setAuth }) => {
 
     const [name, setName] = useState("");
     const [projects, setProjects] = useState([]);
     const navigate = useNavigate();
+
+    const handleNextPage = () => {
+        navigate("/project");
+    }
 
     async function getName() {
         try {
@@ -53,25 +58,40 @@ const Dashboard = ({ setAuth }) => {
 
     return (
         <Fragment>
-            <h1>Dashboard - Welcome, {name}</h1>
-            <Link to="/project">Upload New Project</Link>
-            
-            <div>
-                <button className="btn btn-primary" onClick={logout}>
+            <div className={styles.container}>
+                <button
+                    className={styles.nextButton}
+                    onClick={handleNextPage}
+                >
+                    Upload Project
+                </button>
+
+                <h1>Dashboard</h1>
+                <h2>Welcome, {name}</h2>
+                <br/>
+
+                <h3>Your Projects:</h3>
+                { projects.length > 0 ? (
+                    <ul className={styles.projectList}>
+                        {projects.map((project) => (
+                            <li key={project.project_id} className={styles.projectItem}>
+                                <button
+                                    className={styles.projectButton}
+                                    onClick={() => handleProjectClick(project)}
+                                >
+                                    {project.project_name} ({project.project_status})
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p className={styles.noProjectMessage}>No projects submitted yet.</p>
+                )}
+
+                <button className={styles.logoutButton} onClick={logout}>
                     Logout
                 </button>
             </div>
-            
-            <h2>Your Projects</h2>
-            <ul>
-                {projects.map((project) => (
-                    <li key={project.project_id}>
-                        <button onClick={() => handleProjectClick(project)}>
-                            {project.project_name} ({project.project_status})
-                        </button>
-                    </li>
-                ))}
-            </ul>
         </Fragment>
     );
 }

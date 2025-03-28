@@ -97,3 +97,44 @@
     width: 75%;
     padding-left: 20px;
 }
+
+.projectList {
+    list-style: none;
+    padding: 10px;
+}
+.projectList .projectItem {
+    margin-bottom: 10px;
+}
+.projectItem .projectButton {
+    width: 100%;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s ease;
+}
+
+.noProjectMessage {
+    text-align: center;
+    font-style: italic;
+    color: #888;
+    margin-top: 20px;
+}
+
+.logoutButton {
+    margin-top: 20px;
+    width: 10%;
+    padding: 14px;
+    background-color: #6C63FF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    align-self: center;
+}
+.logoutButton:hover {
+    background-color: #584FFB;
+}
