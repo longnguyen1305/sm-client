@@ -1,13 +1,12 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import Dashboard from './components/Dashboard';
+import Projects from './pages/Projects';
 import Login from './components/loginRegister/Login';
 import Register from './components/loginRegister/Register';
-import Project from './components/Project';
-import Result from './components/Result';
+import Upload from './pages/Upload';
+import Details from './pages/Details';
 
 function App() {
 
@@ -64,7 +63,7 @@ function App() {
             path='/project'
             element={
               isAuthenticated ? (
-                <Project/>
+                <Upload/>
               ) : (
                 <Navigate to='/login'/>
               )
@@ -74,7 +73,7 @@ function App() {
             path='/dashboard'
             element={
               isAuthenticated ? (
-                <Dashboard setAuth={setAuth}/>
+                <Projects setAuth={setAuth}/>
               ) : (
                 <Navigate to='/login'/>
               )
@@ -84,7 +83,7 @@ function App() {
             path="/dashboard/projects/:projectId"
             element={
               isAuthenticated ? (
-                <Result/>
+                <Details/>
               ) : (
                 <Navigate to="/login"/>
               )

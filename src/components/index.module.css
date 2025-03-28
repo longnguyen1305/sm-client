@@ -1,0 +1,19 @@
+.editorwrapper {
+    display: flex;
+    font-family: 'Consolas', 'Courier New', monospace;
+}
+.editorwrapper .foldertree {
+    width: 250px;
+    height: 500px;
+    overflow-y: auto;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-right: 1px solid #333;
+}
+.editorwrapper .codewrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 24px;
+    overflow: hidden;
+}

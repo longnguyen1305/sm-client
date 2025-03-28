@@ -4,7 +4,9 @@ import axios from 'axios';
 import JSZip from 'jszip';
 import ReactCodeMirror from '@uiw/react-codemirror';
 import { dracula } from '@uiw/codemirror-theme-dracula';
+import { cpp } from '@codemirror/lang-cpp';
 import FolderTree from 'react-folder-tree';
+import styles from './index.module.css'
 
 const Project = () => {
 
@@ -37,11 +39,12 @@ const Project = () => {
             parts.forEach((part, index) => {
                 let existing = current.children.find(child => child.name === part);
                 if (!existing) {
+                    const checkFile = index === parts.length - 1;
                     existing = {
                         name: part,
-                        children: [],
-                        isFile: index === parts.length - 1,
-                        filePath: index === parts.length - 1 ? relativePath : null
+                        isFile: checkFile,
+                        filePath: index === parts.length - 1 ? relativePath : null,
+                        ...(checkFile ? {} : { children: [] }) // only give children to folders
                     };
                     current.children.push(existing);
                 }
@@ -63,9 +66,11 @@ const Project = () => {
     };
 
     const handleEditorChange = (value) => {
-        setFiles(prevFiles => prevFiles.map(file =>
-            file.key === selectedFile.path ? {...file, content: value} : file
-        ));
+        if (selectedFile) {
+            setFiles(prevFiles => prevFiles.map(file =>
+                file.key === selectedFile.path ? {...file, content: value} : file
+            ));
+        }
     };
 
     const handleUpload = async (e) => {
@@ -112,7 +117,7 @@ const Project = () => {
     
     return (
         <Fragment>
-            <div className='container'>
+            <div>
                 <h1 className='text-center my-5'>Upload Project</h1>
                 <Link to="/dashboard">Dashboard</Link>
 
@@ -125,31 +130,32 @@ const Project = () => {
                     { message && <span>{ message }</span> }
                 </div>
 
-                <div>
-                    <div>
-                        <h3>Files</h3>
-                        {fileTree && (
+                
+                {fileTree && (
+                    <div className={styles.editorwrapper}>
+                        <div className={styles.foldertree}>
+                            <h3>Project</h3>
                             <FolderTree
-                                data={fileTree}
+                                data={fileTree.children[0]}
                                 showCheckbox={false}
                                 onNameClick={handleFileSelect}
                             />
-                        )}
-                    </div>
-                    <div>
-                        {selectedFile && (
-                            <div className='p-4'>
+                        </div>
+                        <div className={styles.codewrapper}>
+                            <ReactCodeMirror
+                                value={code}
+                                height="475px"
+                                theme={dracula}
+                                extensions={[cpp()]}
+                                onChange={handleEditorChange}
+                            />
+                            {selectedFile &&
                                 <h3>Editing: {selectedFile.name}</h3>
-                                <ReactCodeMirror
-                                    value={code}
-                                    height="400px"
-                                    theme={dracula}
-                                    onChange={handleEditorChange}
-                                />
-                            </div>
-                        )}
+                            }
+                        </div>
                     </div>
-                </div>
+                )}
+                    
             </div>
             
             
