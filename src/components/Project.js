@@ -59,6 +59,7 @@ const Project = () => {
         };
         setFiles(newFiles);
         setFileTree(treeData);
+        setMessage(null);
     };
 
     const handleFileSelect = ({ defaultOnClick, nodeData }) => {
@@ -174,7 +175,7 @@ const Project = () => {
                         <div className={styles.codewrapper}>
                             <ReactCodeMirror
                                 value={code}
-                                height="475px"
+                                height="450px"
                                 theme={dracula}
                                 extensions={[cpp()]}
                                 onChange={handleEditorChange}
