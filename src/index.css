@@ -15,7 +15,7 @@ code {
 
 .container {
   min-height: 100vh;
-  background: aliceblue;
+  background: #F7F8FA;
   display: flex;
   flex-direction: column;
 }

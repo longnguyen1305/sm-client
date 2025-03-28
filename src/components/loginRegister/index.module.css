@@ -17,7 +17,7 @@ header {
 }
 .logo {
     font-size: 2em;
-    color: aliceblue;
+    color: #F7F8FA;
     user-select: none;
 }
 
@@ -25,7 +25,7 @@ header {
     position: relative;
     width: 400px;
     height: 450px;
-    background-color: aliceblue;
+    background-color: #F7F8FA;
     border: 2px solid rgba(255, 255, 255, .5);
     border-radius: 6px;
     backdrop-filter: blur(20px);
@@ -95,12 +95,12 @@ header {
     border-radius: 6px;
     cursor: pointer;
     font-size: 1em;
-    color: aliceblue;
+    color: #F7F8FA;
     font-weight: 500;
 }
 .btn:hover {
     text-decoration: underline;
-    color: aliceblue;
+    color: #F7F8FA;
 }
 
 .loginregister {

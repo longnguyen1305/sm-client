@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import JSZip from 'jszip';
 import ReactCodeMirror from '@uiw/react-codemirror';
@@ -22,6 +22,12 @@ const Project = () => {
     const [progress, setProgress] = useState({ started: false, percent: 0 });
     // Notify upload status
     const [message, setMessage] = useState(null);
+
+    const navigate = useNavigate();
+
+    const handleNextPage = () => {
+        navigate("/dashboard");
+    }
 
     const handleFolderSelect = async (e) => {
         const fileList = e.target.files;
@@ -105,11 +111,11 @@ const Project = () => {
             headers: {token: localStorage.token}
         })
         .then(res => {
-            setMessage("Upload Successful");
+            setMessage("Submit Successful");
             console.log(res.data);
         })
         .catch(err => {
-            setMessage("Upload Failed");
+            setMessage("Submit Failed");
             console.error(err);
         });
         
@@ -117,20 +123,43 @@ const Project = () => {
     
     return (
         <Fragment>
-            <div>
-                <h1 className='text-center my-5'>Upload Project</h1>
-                <Link to="/dashboard">Dashboard</Link>
+            <div className={styles.container}>
+                <button
+                    className={styles.nextButton}
+                    onClick={handleNextPage}
+                >
+                    Dashboard
+                </button>
 
-                <div>
-                    <input type='file' directory="" webkitdirectory="" onChange={handleFolderSelect}/>
-                    <button className="btn btn-primary" onClick={handleUpload}>Upload</button>
-                    <br/>
-                    { progress.started && <progress max="100" value={progress.percent}></progress> }
-                    <br/>
-                    { message && <span>{ message }</span> }
-                </div>
-
+                <h1>Upload Project</h1>
                 
+                <div className={styles.controls}>
+                    <input
+                        type='file' 
+                        directory="" 
+                        webkitdirectory="" 
+                        onChange={handleFolderSelect}
+                    />
+                    <button
+                        className={styles.submitButton}
+                        onClick={handleUpload}
+                    >
+                        Submit Project
+                    </button>
+                </div>
+                
+                { progress.started && (
+                    <progress
+                        max="100"
+                        value={progress.percent}
+                        className={styles.progress}
+                    ></progress>
+                )}
+                <br/>
+                { message && (
+                    <span className={styles.message}>{ message }</span>
+                )}
+
                 {fileTree && (
                     <div className={styles.editorwrapper}>
                         <div className={styles.foldertree}>
@@ -138,6 +167,7 @@ const Project = () => {
                             <FolderTree
                                 data={fileTree.children[0]}
                                 showCheckbox={false}
+                                indentPixels={ 10 }
                                 onNameClick={handleFileSelect}
                             />
                         </div>
@@ -155,6 +185,8 @@ const Project = () => {
                         </div>
                     </div>
                 )}
+
+                
                     
             </div>
             
