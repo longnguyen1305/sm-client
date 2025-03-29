@@ -22,6 +22,8 @@ const Project = () => {
     const [progress, setProgress] = useState({ started: false, percent: 0 });
     // Notify upload status
     const [message, setMessage] = useState(null);
+    // Modified code of selected file
+    const [editedFiles, setEditedFiles] = useState({});
 
     const navigate = useNavigate();
 
@@ -36,8 +38,7 @@ const Project = () => {
 
         for (const file of fileList) {
             const relativePath = file.webkitRelativePath || file.name;
-            const content = await file.text();
-            newFiles.push({ key: relativePath, name: file.name, content })
+            newFiles.push({ key: relativePath, name: file.name, file })
 
             //Build folder tree structure
             const parts = relativePath.split("/");
@@ -62,21 +63,27 @@ const Project = () => {
         setMessage(null);
     };
 
-    const handleFileSelect = ({ defaultOnClick, nodeData }) => {
+    const handleFileSelect = async ({ nodeData }) => {
         if(nodeData.isFile) {
             const file = files.find(f => f.key === nodeData.filePath);
             if (file) {
+                let content = editedFiles[file.key]; // check edited first
+                if (!content) {
+                    content = await file.file.text(); // fallback to original
+                }
                 setSelectedFile( { path: nodeData.filePath, name: nodeData.name });
-                setCode(file.content || "");
+                setCode(content || "");
             }
         }
     };
 
     const handleEditorChange = (value) => {
         if (selectedFile) {
-            setFiles(prevFiles => prevFiles.map(file =>
-                file.key === selectedFile.path ? {...file, content: value} : file
-            ));
+            setCode(value);
+            setEditedFiles(prev => ({
+                ...prev,
+                [selectedFile.path]: value
+            }));
         }
     };
 
@@ -92,8 +99,12 @@ const Project = () => {
         }
 
         const zip = new JSZip();
-        files.forEach(({ key, content }) => {
-            zip.file(key, content);
+        files.forEach(({ key, file }) => {
+            if (editedFiles[key]) {
+                zip.file(key, editedFiles[key]); // use edited content
+            } else {
+                zip.file(key, file); // use original file
+            }
         });
         const zipBlob = await zip.generateAsync({ type:"blob"});
 
