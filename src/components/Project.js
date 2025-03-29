@@ -5,7 +5,7 @@ import JSZip from 'jszip';
 import ReactCodeMirror from '@uiw/react-codemirror';
 import { dracula } from '@uiw/codemirror-theme-dracula';
 import { cpp } from '@codemirror/lang-cpp';
-import FolderTree from 'react-folder-tree';
+import { Tree } from 'react-arborist';
 import styles from './index.module.css'
 
 const Project = () => {
@@ -34,7 +34,7 @@ const Project = () => {
     const handleFolderSelect = async (e) => {
         const fileList = e.target.files;
         const newFiles = [];
-        const treeData = { name: "root", children: [], isFile: false, filePath: "root" };
+        const treeData = { id: "root", name: "root", children: [], isFile: false, filePath: "root" };
 
         for (const file of fileList) {
             const relativePath = file.webkitRelativePath || file.name;
@@ -48,9 +48,10 @@ const Project = () => {
                 if (!existing) {
                     const checkFile = index === parts.length - 1;
                     existing = {
+                        id: current.id + "/" + part,
                         name: part,
                         isFile: checkFile,
-                        filePath: index === parts.length - 1 ? relativePath : null,
+                        filePath: checkFile ? relativePath : null,
                         ...(checkFile ? {} : { children: [] }) // only give children to folders
                     };
                     current.children.push(existing);
@@ -63,7 +64,8 @@ const Project = () => {
         setMessage(null);
     };
 
-    const handleFileSelect = async ({ nodeData }) => {
+    const handleFileSelect = async ({ node }) => {
+        const nodeData = node.data;
         if(nodeData.isFile) {
             const file = files.find(f => f.key === nodeData.filePath);
             if (file) {
@@ -175,11 +177,17 @@ const Project = () => {
                     <div className={styles.editorwrapper}>
                         <div className={styles.foldertree}>
                             <h3>Project</h3>
-                            <FolderTree
-                                data={fileTree.children[0]}
-                                showCheckbox={false}
-                                indentPixels={ 10 }
-                                onNameClick={handleFileSelect}
+                            <Tree
+                                data={fileTree.children}
+                                openByDefault={true}
+                                height={ 440 }
+                                width={'100%'}
+                                indent={10}
+                                onSelect={(nodes) => {
+                                    if (nodes.length > 0) {
+                                        handleFileSelect({ node: nodes[0] });
+                                    }
+                                }}
                             />
                         </div>
                         <div className={styles.codewrapper}>
