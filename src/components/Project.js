@@ -79,7 +79,6 @@ const Project = () => {
 
     const handleEditorChange = (value) => {
         if (selectedFile) {
-            setCode(value);
             setEditedFiles(prev => ({
                 ...prev,
                 [selectedFile.path]: value
