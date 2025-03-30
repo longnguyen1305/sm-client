@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styles from './index.module.css'
 
-const Login = ({ setAuth }) => {
+const Login = ({ setAuth, API }) => {
 
     const [inputs, setInputs] = useState({
         email: "",
@@ -18,7 +18,7 @@ const Login = ({ setAuth }) => {
 
         try {
             const body = {email, password}
-            const response = await fetch("http://localhost:5000/auth/login", {
+            const response = await fetch(`${API}/auth/login`, {
                 method: "POST",
                 headers: {"Content-Type" : "application/json"},
                 body: JSON.stringify(body)

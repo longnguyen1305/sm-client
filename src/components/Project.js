@@ -8,7 +8,7 @@ import { cpp } from '@codemirror/lang-cpp';
 import { Tree } from 'react-arborist';
 import styles from './index.module.css'
 
-const Project = () => {
+const Project = ({ API }) => {
 
     // All chosen files
     const [files, setFiles] = useState([]);
@@ -117,7 +117,7 @@ const Project = () => {
             return {...prevState, started: true}
         });
 
-        axios.post("http://localhost:5000/project/upload", formData, {
+        axios.post(`${API}/project/upload`, formData, {
             onUploadProgress: (ProgressEvent) => { setProgress(prevState => {
                 return {...prevState, percent: ProgressEvent.progress*100}
             }) },

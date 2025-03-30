@@ -3,7 +3,7 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import styles from './index.module.css'
 
-const Result = () => {
+const Result = ({ API }) => {
     const { projectId } = useParams();
     const [metrics, setMetrics] = useState([]);
     const navigate = useNavigate();
@@ -14,7 +14,7 @@ const Result = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.get(`http://localhost:5000/dashboard/projects/${projectId}`, {
+            const response = await axios.get(`${API}/dashboard/projects/${projectId}`, {
                 responseType: 'blob',
                 headers: {token: localStorage.token}
             })
@@ -41,14 +41,14 @@ const Result = () => {
 
     const getMetrics = useCallback(async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/dashboard/metrics/${projectId}`, {
+            const response = await axios.get(`${API}/dashboard/metrics/${projectId}`, {
                 headers: { token: localStorage.token }
             });
             setMetrics(response.data.metrics);
         } catch (err) {
             console.error("Error fetching metrics:", err.message);
         }
-    }, [projectId]);
+    }, [projectId, API]);
 
     useEffect(() => {
         getMetrics();

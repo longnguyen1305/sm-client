@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
@@ -9,15 +9,16 @@ import Upload from './pages/Upload';
 import Details from './pages/Details';
 
 function App() {
+  const API = process.env.REACT_APP_API_URL;
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const setAuth = (authStatus) => {
     setIsAuthenticated(authStatus);
   }
 
-  async function isAuth() {
+  const isAuth = useCallback( async () => {
     try {
-      const response = await fetch("http://localhost:5000/auth/is-verify", {
+      const response = await fetch(`${API}/auth/is-verify`, {
         method: "GET",
         headers: {token: localStorage.token}
       });
@@ -28,11 +29,11 @@ function App() {
     } catch (err) {
       console.error(err.message);
     }
-  }
+  }, [API]);
 
   useEffect(() => {
     isAuth();
-  },[]);
+  },[isAuth]);
 
   return (
     <Fragment>
@@ -43,7 +44,7 @@ function App() {
             path='/login'
             element={
               !isAuthenticated ? (
-                <Login setAuth={setAuth}/>
+                <Login setAuth={setAuth} API={API}/>
               ) : (
                 <Navigate to='/project'/>
               )
@@ -53,7 +54,7 @@ function App() {
             path='/register'
             element={
               !isAuthenticated ? (
-                <Register setAuth={setAuth}/>
+                <Register setAuth={setAuth} API={API}/>
               ) : (
                 <Navigate to='/login'/>
               )
@@ -63,7 +64,7 @@ function App() {
             path='/project'
             element={
               isAuthenticated ? (
-                <Upload/>
+                <Upload API={API}/>
               ) : (
                 <Navigate to='/login'/>
               )
@@ -83,7 +84,7 @@ function App() {
             path="/dashboard/projects/:projectId"
             element={
               isAuthenticated ? (
-                <Details/>
+                <Details API={API}/>
               ) : (
                 <Navigate to="/login"/>
               )

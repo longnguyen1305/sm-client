@@ -2,11 +2,11 @@ import { Fragment } from "react";
 import Project from "../components/Project";
 import "./index.css";
 
-function Upload() {
+function Upload({ API }) {
     return (
         <Fragment>
             <div className="container">
-                <Project />
+                <Project API={API}/>
             </div>
         </Fragment>
         

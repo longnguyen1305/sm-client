@@ -1,11 +1,11 @@
 import { Fragment } from "react";
 import Result from "../components/Result";
 
-function Details() {
+function Details({ API }) {
     return (
         <Fragment>
             <div className="container">
-                <Result />
+                <Result API={API}/>
             </div>
         </Fragment>
         

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styles from './index.module.css'
 
-const Register = ({ setAuth }) => {
+const Register = ({ setAuth, API }) => {
 
     const [inputs, setInputs] = useState({
         email: "",
@@ -19,7 +19,7 @@ const Register = ({ setAuth }) => {
 
         try {
             const body = {email, password, name}
-            const response = await fetch("http://localhost:5000/auth/register", {
+            const response = await fetch(`${API}/auth/register`, {
                 method: "POST",
                 headers: {"Content-Type" : "application/json"},
                 body: JSON.stringify(body)
