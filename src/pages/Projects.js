@@ -1,11 +1,11 @@
 import { Fragment } from "react";
 import Dashboard from "../components/Dashboard";
 
-const Projects = ({ setAuth }) => {
+const Projects = ({ setAuth, API }) => {
     return (
         <Fragment>
             <div className="container">
-                <Dashboard setAuth={setAuth}/>
+                <Dashboard setAuth={setAuth} API={API}/>
             </div>
         </Fragment>
         

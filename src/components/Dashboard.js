@@ -1,10 +1,10 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import styles from './index.module.css'
 
-const Dashboard = ({ setAuth }) => {
+const Dashboard = ({ setAuth, API }) => {
 
     const [name, setName] = useState("");
     const [projects, setProjects] = useState([]);
@@ -14,9 +14,9 @@ const Dashboard = ({ setAuth }) => {
         navigate("/project");
     }
 
-    async function getName() {
+    const getName = useCallback(async () => {
         try {
-            const response = await axios.get("http://localhost:5000/dashboard/", {
+            const response = await axios.get(`${API}/dashboard/`, {
                 headers: { token: localStorage.token }
             });
 
@@ -25,11 +25,11 @@ const Dashboard = ({ setAuth }) => {
         } catch (err) {
             console.error("Error fetching user name:", err.message);
         }
-    }
+    }, [API]);
 
-    async function getProjects() {
+    const getProjects = useCallback(async () => {
         try {
-            const response = await axios.get("http://localhost:5000/dashboard/projects", {
+            const response = await axios.get(`${API}/dashboard/projects`, {
                 headers: { token: localStorage.token }
             });
 
@@ -38,7 +38,7 @@ const Dashboard = ({ setAuth }) => {
         } catch (err) {
             console.error("Error fetching projects:", err.message);
         }
-    }
+    }, [API])
 
     const logout = (e) => {
         e.preventDefault();
@@ -50,7 +50,7 @@ const Dashboard = ({ setAuth }) => {
     useEffect(() => {
         getName();
         getProjects();
-    },[]);
+    },[getName, getProjects]);
 
     const handleProjectClick = (project) => {
         navigate(`/dashboard/projects/${project.project_id}`, { state: { project } });

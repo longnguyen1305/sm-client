@@ -74,7 +74,7 @@ function App() {
             path='/dashboard'
             element={
               isAuthenticated ? (
-                <Projects setAuth={setAuth}/>
+                <Projects setAuth={setAuth} API={API}/>
               ) : (
                 <Navigate to='/login'/>
               )
