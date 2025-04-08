@@ -45,7 +45,11 @@ const Register = ({ setAuth, API }) => {
         <Fragment>
             <div className={styles.container}>
                 <header>
-                    <h1 className={styles.logo}>LOGO</h1>
+                    <img 
+                        src="/logo.png" 
+                        alt="Logo" 
+                        className={styles.logo}
+                    />
                 </header>
                 <div className={styles.wrapper}>
                     <div className={styles.formbox}>

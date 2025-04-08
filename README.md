@@ -7,19 +7,30 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - [Download Node.js](https://nodejs.org/en/download) - for Windows, MacOS, and Linux.
 
 ### 1. Clone the Repository
+
 - Run the following command to clone the project to your local system:
 
 ```sh
 git clone https://github.com/longnguyen1305/sm-client
 ```
 
-### 2. Install Dependencies  
+### 2. Install Dependencies
+
 - Navigate to the project directory and install the necessary dependencies:
 
 ```sh
 cd sm-client
 npm install
 ```
+
+## PaaS and BaaS
+
+Deployed App: https://sm-client-six.vercel.app/
+
+- Front-end: Vercel
+- Back-end: Render
+- Database: Neon
+- Storage: Supabase
 
 ## Available Scripts
 

@@ -16,9 +16,10 @@ header {
     z-index: 99;
 }
 .logo {
-    font-size: 2em;
-    color: #F7F8FA;
-    user-select: none;
+    max-width: 300px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 6px #ffffff88);
 }
 
 .wrapper {

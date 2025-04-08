@@ -136,6 +136,9 @@ const Project = ({ API }) => {
     
     return (
         <Fragment>
+            <div className={styles.logoBar}>
+                <img src="/logo.png" alt="Logo" className={styles.logo} />
+            </div>
             <div className={styles.container}>
                 <button
                     className={styles.nextButton}
