@@ -3,8 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { ToastContainer } from 'react-toastify';
 
 import Projects from './pages/Projects';
-import Login from './components/loginRegister/Login';
-import Register from './components/loginRegister/Register';
+import LoginRegister from './pages/LoginRegister';
 import Upload from './pages/Upload';
 import Details from './pages/Details';
 
@@ -39,24 +38,14 @@ function App() {
     <Fragment>
       <Router>
         <Routes>
-          <Route path="/" element={<Navigate to="/login"/>} />
+          <Route path="/" element={<Navigate to="/login-register"/>} />
           <Route
-            path='/login'
+            path='/login-register'
             element={
               !isAuthenticated ? (
-                <Login setAuth={setAuth} API={API}/>
+                <LoginRegister setAuth={setAuth} API={API}/>
               ) : (
                 <Navigate to='/project'/>
-              )
-            }
-          />
-          <Route
-            path='/register'
-            element={
-              !isAuthenticated ? (
-                <Register setAuth={setAuth} API={API}/>
-              ) : (
-                <Navigate to='/login'/>
               )
             }
           />
@@ -66,7 +55,7 @@ function App() {
               isAuthenticated ? (
                 <Upload API={API}/>
               ) : (
-                <Navigate to='/login'/>
+                <Navigate to='/login-register'/>
               )
             }
           />
@@ -76,7 +65,7 @@ function App() {
               isAuthenticated ? (
                 <Projects setAuth={setAuth} API={API}/>
               ) : (
-                <Navigate to='/login'/>
+                <Navigate to='/login-register'/>
               )
             }
           />
@@ -86,7 +75,7 @@ function App() {
               isAuthenticated ? (
                 <Details API={API}/>
               ) : (
-                <Navigate to="/login"/>
+                <Navigate to="/login-register"/>
               )
             }
           />
