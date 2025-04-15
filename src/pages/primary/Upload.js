@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import Layout from "../Layout";
-import Project from "../../components/primary/Project";
+import Project from "../../components/upload/Project";
 
 function Upload({ API }) {
     return (

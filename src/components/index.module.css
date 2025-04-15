@@ -1,0 +1,52 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 20px;
+    padding-top: 120px;
+    background-color: #F7F8FA;
+}
+.container h1 {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    color: #222;
+    font-weight: 600;
+}
+
+.nextButton {
+    margin-top: 20px;
+    width: 100%;
+    padding: 14px;
+    background-color: #6C63FF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.nextButton:hover {
+    background-color: #584FFB;
+}
+
+.submitButton {
+    background-color: #6C63FF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.submitButton:hover {
+    background-color: #584FFB;
+}
+
+.noProjectMessage {
+    text-align: center;
+    font-style: italic;
+    color: #888;
+    margin-top: 20px;
+}

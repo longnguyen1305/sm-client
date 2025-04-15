@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import Login from "../../components/loginRegister/Login";
 import Register from "../../components/loginRegister/Register";
-import styles from './index.module.css';
+import styles from './LogReg.module.css';
 
 function LoginRegister({ setAuth, API }) {
     const [isLogin, setIsLogin] = useState(true);

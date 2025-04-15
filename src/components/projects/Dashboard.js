@@ -2,7 +2,8 @@ import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import styles from './index.module.css'
+import dashboardStyles from './Dashboard.module.css';
+import styles from '../index.module.css';
 
 const Dashboard = ({ setAuth, API }) => {
 
@@ -72,11 +73,11 @@ const Dashboard = ({ setAuth, API }) => {
 
                 <h3>Your Projects:</h3>
                 { projects.length > 0 ? (
-                    <ul className={styles.projectList}>
+                    <ul className={dashboardStyles.projectList}>
                         {projects.map((project) => (
-                            <li key={project.project_id} className={styles.projectItem}>
+                            <li key={project.project_id} className={dashboardStyles.projectItem}>
                                 <button
-                                    className={styles.projectButton}
+                                    className={dashboardStyles.projectButton}
                                     onClick={() => handleProjectClick(project)}
                                 >
                                     {project.project_createtime} / {project.project_name} / {project.project_status}
@@ -88,7 +89,7 @@ const Dashboard = ({ setAuth, API }) => {
                     <p className={styles.noProjectMessage}>No projects submitted yet.</p>
                 )}
 
-                <button className={styles.logoutButton} onClick={logout}>
+                <button className={dashboardStyles.logoutButton} onClick={logout}>
                     Logout
                 </button>
             </div>

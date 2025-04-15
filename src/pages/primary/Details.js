@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import Layout from "../Layout";
-import Result from "../../components/primary/Result";
+import Result from "../../components/details/Result";
 
 function Details({ API }) {
     return (

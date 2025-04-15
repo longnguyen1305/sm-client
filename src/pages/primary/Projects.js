@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import Layout from "../Layout";
-import Dashboard from "../../components/primary/Dashboard";
+import Dashboard from "../../components/projects/Dashboard";
 
 const Projects = ({ setAuth, API }) => {
     return (

@@ -1,7 +1,8 @@
 import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import styles from './index.module.css'
+import resultStyles from './Result.module.css';
+import styles from '../index.module.css';
 
 const Result = ({ API }) => {
     const { projectId } = useParams();
@@ -58,15 +59,15 @@ const Result = ({ API }) => {
         <Fragment>
             <div className={styles.container}>
                 <button
-                    className={styles.backButton}
+                    className={resultStyles.backButton}
                     onClick={() => navigate("/dashboard")}
                 >
                     Back to Dashboard
                 </button>
 
-                <h2 className={styles.projecttitle}>Project: {project.project_name}</h2>
-                <p className={styles.projectinfo}>Status: {project.project_status}</p>
-                <p className={styles.projectinfo}>Created At: {project.project_createtime}</p>
+                <h2 className={resultStyles.projecttitle}>Project: {project.project_name}</h2>
+                <p className={resultStyles.projectinfo}>Status: {project.project_status}</p>
+                <p className={resultStyles.projectinfo}>Created At: {project.project_createtime}</p>
 
                 <button
                     className={styles.submitButton}
@@ -75,18 +76,18 @@ const Result = ({ API }) => {
                     Download Project
                 </button>
                 
-                <h3 className={styles.projecttitle}>Metrics:</h3>
+                <h3 className={resultStyles.projecttitle}>Metrics:</h3>
                 {metrics.length === 0 ? (
                     <p className={styles.noProjectMessage}>No metrics available.</p>
                 ) : (
-                    <div className={styles.metricswrapper}>
+                    <div className={resultStyles.metricswrapper}>
                         {metrics.map((metric) => (
-                            <div key={metric.metric_name} className={styles.metricItem}>
+                            <div key={metric.metric_name} className={resultStyles.metricItem}>
                                 <h4>{metric.metric_name}</h4>
                                 <img
                                     src={metric.metric_url}
                                     alt={metric.metric_name}
-                                    className={styles.metricImage}
+                                    className={resultStyles.metricImage}
                                 />
                             </div>
                         ))}

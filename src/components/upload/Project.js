@@ -6,7 +6,8 @@ import ReactCodeMirror from '@uiw/react-codemirror';
 import { dracula } from '@uiw/codemirror-theme-dracula';
 import { cpp } from '@codemirror/lang-cpp';
 import { Tree } from 'react-arborist';
-import styles from './index.module.css'
+import projectStyles from './Project.module.css';
+import styles from '../index.module.css';
 
 const Project = ({ API }) => {
 
@@ -146,7 +147,7 @@ const Project = ({ API }) => {
 
                 <h1>Upload Project</h1>
                 
-                <div className={styles.controls}>
+                <div className={projectStyles.controls}>
                     <input
                         type='file' 
                         directory="" 
@@ -165,17 +166,17 @@ const Project = ({ API }) => {
                     <progress
                         max="100"
                         value={progress.percent}
-                        className={styles.progress}
+                        className={projectStyles.progress}
                     ></progress>
                 )}
                 <br/>
                 { message && (
-                    <span className={styles.message}>{ message }</span>
+                    <span className={projectStyles.message}>{ message }</span>
                 )}
 
                 {fileTree && (
-                    <div className={styles.editorwrapper}>
-                        <div className={styles.foldertree}>
+                    <div className={projectStyles.editorwrapper}>
+                        <div className={projectStyles.foldertree}>
                             <h3>Project</h3>
                             <Tree
                                 data={fileTree.children}
@@ -190,7 +191,7 @@ const Project = ({ API }) => {
                                 }}
                             />
                         </div>
-                        <div className={styles.codewrapper}>
+                        <div className={projectStyles.codewrapper}>
                             <ReactCodeMirror
                                 value={code}
                                 height="450px"

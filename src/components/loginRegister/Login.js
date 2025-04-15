@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { toast } from 'react-toastify';
-import styles from './index.module.css'
+import styles from './LogReg.module.css';
 
 const Login = ({ setAuth, API, toggleForm }) => {
 
