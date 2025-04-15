@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
-import Login from "../components/loginRegister/Login";
-import Register from "../components/loginRegister/Register";
+import Login from "../../components/loginRegister/Login";
+import Register from "../../components/loginRegister/Register";
 import styles from './index.module.css';
 
 function LoginRegister({ setAuth, API }) {

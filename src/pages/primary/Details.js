@@ -1,12 +1,13 @@
 import { Fragment } from "react";
-import Result from "../components/Result";
+import Layout from "../Layout";
+import Result from "../../components/primary/Result";
 
 function Details({ API }) {
     return (
         <Fragment>
-            <div className="container">
+            <Layout>
                 <Result API={API}/>
-            </div>
+            </Layout>
         </Fragment>
         
     );

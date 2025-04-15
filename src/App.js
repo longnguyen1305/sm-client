@@ -2,10 +2,10 @@ import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import Projects from './pages/Projects';
-import LoginRegister from './pages/LoginRegister';
-import Upload from './pages/Upload';
-import Details from './pages/Details';
+import Projects from './pages/primary/Projects';
+import LoginRegister from './pages/loginRegister/LoginRegister';
+import Upload from './pages/primary/Upload';
+import Details from './pages/primary/Details';
 
 function App() {
   const API = process.env.REACT_APP_API_URL;

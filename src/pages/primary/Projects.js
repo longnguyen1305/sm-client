@@ -1,14 +1,14 @@
 import { Fragment } from "react";
-import Dashboard from "../components/Dashboard";
+import Layout from "../Layout";
+import Dashboard from "../../components/primary/Dashboard";
 
 const Projects = ({ setAuth, API }) => {
     return (
         <Fragment>
-            <div className="container">
+            <Layout>
                 <Dashboard setAuth={setAuth} API={API}/>
-            </div>
+            </Layout>
         </Fragment>
-        
     );
 }
 

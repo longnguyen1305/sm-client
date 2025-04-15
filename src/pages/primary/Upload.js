@@ -1,12 +1,13 @@
 import { Fragment } from "react";
-import Project from "../components/Project";
+import Layout from "../Layout";
+import Project from "../../components/primary/Project";
 
 function Upload({ API }) {
     return (
         <Fragment>
-            <div className="container">
+            <Layout>
                 <Project API={API}/>
-            </div>
+            </Layout>
         </Fragment>
         
     );
