@@ -15,7 +15,7 @@ const Result = ({ API }) => {
         e.preventDefault();
 
         try {
-            const response = await axios.get(`${API}/dashboard/projects/${projectId}`, {
+            const response = await axios.get(`${API}/project/${projectId}/download`, {
                 responseType: 'blob',
                 headers: {token: localStorage.token}
             })
